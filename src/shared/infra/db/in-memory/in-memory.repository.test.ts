@@ -1,7 +1,7 @@
-import { Entity } from "../../domain/entity";
-import { NotFoundError } from "../../domain/errors/not-found.errors";
-import { ValueObject } from "../../domain/value-object";
-import { Uuid } from "../../domain/value-objects/uuid.vo";
+import { Entity } from "../../../domain/entity";
+import { NotFoundError } from "../../../domain/errors/not-found.errors";
+import { ValueObject } from "../../../domain/value-object";
+import { Uuid } from "../../../domain/value-objects/uuid.vo";
 import { InMemoryRepository } from "./in-memory.repository";
 
 type TStubEntityConstructorProps = {
@@ -139,9 +139,9 @@ describe("InMemoryRepository Unit Tests", () => {
       name: "Test",
       price: 100,
     });
-    await repo.insert(entity)
+    await repo.insert(entity);
 
-    await repo.delete(entity.entity_id)
-    expect(repo.items).toHaveLength(0)
+    await repo.delete(entity.entity_id);
+    expect(repo.items).toHaveLength(0);
   });
 });
