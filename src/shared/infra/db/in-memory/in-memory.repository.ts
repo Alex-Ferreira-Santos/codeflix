@@ -81,7 +81,7 @@ export abstract class InMemorySearchableRepository<
     );
     return new SearchResult({
       items: itemsPaginated,
-      total: itemsPaginated.length,
+      total: itemsFiltered.length,
       current_page: props.page,
       per_page: props.per_page,
     });
