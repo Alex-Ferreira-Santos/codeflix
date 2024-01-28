@@ -173,7 +173,7 @@ describe("CategorySequelizeRepository Integration Tests", () => {
           total: 3,
           current_page: 1,
           per_page: 2,
-        })
+        }).toJSON(true)
       );
 
       searchOutput = await repository.search(

@@ -6,11 +6,13 @@ import { Uuid } from "../../../../../shared/domain/value-objects/uuid.vo";
 import { setupSequelize } from "../../../../../shared/infra/testing/helpers";
 
 describe("CategoryModelMapper Integration Tests", () => {
-  setupSequelize({models: [CategoryModel]})
+  setupSequelize({ models: [CategoryModel] });
 
   it("should throws error when category is invalid", () => {
+    expect.assertions(2);
     const model = CategoryModel.build({
       category_id: "dfd135e4-d321-446a-ad30-70ea9f21d48c",
+      name: "a".repeat(256),
     });
 
     try {
@@ -20,13 +22,11 @@ describe("CategoryModelMapper Integration Tests", () => {
       );
     } catch (error) {
       expect(error).toBeInstanceOf(EntityValidationError);
-      expect((error as EntityValidationError).errors).toMatchObject({
-        name: [
-          "name should not be empty",
-          "name must be a string",
-          "name must be shorter than or equal to 255 characters",
-        ],
-      });
+      expect((error as EntityValidationError).errors).toMatchObject([
+        {
+          name: ["name must be shorter than or equal to 255 characters"],
+        },
+      ]);
     }
   });
 
