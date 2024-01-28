@@ -1,5 +1,5 @@
 import { CategoryInMemoryRepository } from "../../../../infra/db/in-memory/category-in-memory.repository";
-import { CreateCategoryUseCase } from "../../create-category.use-case";
+import { CreateCategoryUseCase } from "../create-category.use-case";
 
 describe("CreateCategoryUseCase Unit Tests", () => {
   let useCase: CreateCategoryUseCase;
@@ -10,10 +10,12 @@ describe("CreateCategoryUseCase Unit Tests", () => {
     useCase = new CreateCategoryUseCase(repository);
   });
 
-  it('should throw an error when field is not valid', async () => {
-    const input = {name: 't'.repeat(256)}
-    await expect(() => useCase.execute(input)).rejects.toThrow('Entity Validation Error')
-  })
+  it("should throw an error when field is not valid", async () => {
+    const input = { name: "t".repeat(256) };
+    await expect(() => useCase.execute(input)).rejects.toThrow(
+      "Entity Validation Error"
+    );
+  });
 
   it("should create a category", async () => {
     const spyInsert = jest.spyOn(repository, "insert");
@@ -37,7 +39,7 @@ describe("CreateCategoryUseCase Unit Tests", () => {
     expect(output).toStrictEqual({
       id: repository.items[1].category_id.id,
       name: "test",
-      description: 'some description',
+      description: "some description",
       is_active: false,
       created_at: repository.items[1].created_at,
     });

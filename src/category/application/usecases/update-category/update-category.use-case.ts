@@ -1,13 +1,14 @@
-import { IUseCase } from "../../../shared/application/use-case.interface";
-import { NotFoundError } from "../../../shared/domain/errors/not-found.errors";
-import { EntityValidationError } from "../../../shared/domain/validators/validation.error";
-import { Uuid } from "../../../shared/domain/value-objects/uuid.vo";
-import { Category } from "../../domain/category.entity";
-import { ICategoryRepository } from "../../domain/category.repository";
+import { IUseCase } from "../../../../shared/application/use-case.interface";
+import { NotFoundError } from "../../../../shared/domain/errors/not-found.errors";
+import { EntityValidationError } from "../../../../shared/domain/validators/validation.error";
+import { Uuid } from "../../../../shared/domain/value-objects/uuid.vo";
+import { Category } from "../../../domain/category.entity";
+import { ICategoryRepository } from "../../../domain/category.repository";
 import {
   CategoryOutputMapper,
   TCategoryOutput,
-} from "./common/category-output";
+} from "../common/category-output";
+import { UpdateCategoryInput } from "./update-category.input";
 
 export class UpdateCategoryUseCase
   implements IUseCase<UpdateCategoryInput, UpdateCategoryOutput>
@@ -42,12 +43,5 @@ export class UpdateCategoryUseCase
     return CategoryOutputMapper.toOutput(category);
   }
 }
-
-export type UpdateCategoryInput = {
-  id: string;
-  name?: string;
-  description?: string;
-  is_active?: boolean;
-};
 
 export type UpdateCategoryOutput = TCategoryOutput;

@@ -4,7 +4,7 @@ import { setupSequelize } from "../../../../../shared/infra/testing/helpers";
 import { Category } from "../../../../domain/category.entity";
 import { CategorySequelizeRepository } from "../../../../infra/db/sequelize/category-sequelize.repository";
 import { CategoryModel } from "../../../../infra/db/sequelize/category.model";
-import { GetCategoryUseCase } from "../../get-category.use-case";
+import { GetCategoryUseCase } from "../get-category.use-case";
 
 describe("GetCategoryUseCase Integration Tests", () => {
   let useCase: GetCategoryUseCase;
@@ -37,7 +37,7 @@ describe("GetCategoryUseCase Integration Tests", () => {
       name: category.name,
       description: category.description,
       is_active: category.is_active,
-      created_at: category.created_at
-    })
+      created_at: category.created_at,
+    });
   });
 });

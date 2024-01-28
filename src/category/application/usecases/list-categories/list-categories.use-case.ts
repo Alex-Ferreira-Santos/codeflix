@@ -1,26 +1,29 @@
-import { PaginationOutputMapper, TPaginationOutput } from "../../../shared/application/pagination-output";
-import { IUseCase } from "../../../shared/application/use-case.interface";
-import { NotFoundError } from "../../../shared/domain/errors/not-found.errors";
-import { TSortDirection } from "../../../shared/domain/repository/search-params";
-import { Uuid } from "../../../shared/domain/value-objects/uuid.vo";
-import { Category } from "../../domain/category.entity";
+import {
+  PaginationOutputMapper,
+  TPaginationOutput,
+} from "../../../../shared/application/pagination-output";
+import { IUseCase } from "../../../../shared/application/use-case.interface";
+import { NotFoundError } from "../../../../shared/domain/errors/not-found.errors";
+import { TSortDirection } from "../../../../shared/domain/repository/search-params";
+import { Uuid } from "../../../../shared/domain/value-objects/uuid.vo";
+import { Category } from "../../../domain/category.entity";
 import {
   CategorySearchParams,
   CategorySearchResult,
   ICategoryRepository,
   TCategoryFilter,
-} from "../../domain/category.repository";
+} from "../../../domain/category.repository";
 import {
   CategoryOutputMapper,
   TCategoryOutput,
-} from "./common/category-output";
+} from "../common/category-output";
 
-export class ListCategoryUseCase
-  implements IUseCase<ListCategoryInput, ListCategoriesOutput>
+export class ListCategoriesUseCase
+  implements IUseCase<ListCategoriesInput, ListCategoriesOutput>
 {
   constructor(private categoryRepo: ICategoryRepository) {}
 
-  async execute(input: ListCategoryInput): Promise<ListCategoriesOutput> {
+  async execute(input: ListCategoriesInput): Promise<ListCategoriesOutput> {
     const params = new CategorySearchParams(input);
     const searchResult = await this.categoryRepo.search(params);
     return this.toOutput(searchResult);
@@ -35,7 +38,7 @@ export class ListCategoryUseCase
   }
 }
 
-export type ListCategoryInput = {
+export type ListCategoriesInput = {
   page?: number;
   per_page?: number;
   sort?: string | null;

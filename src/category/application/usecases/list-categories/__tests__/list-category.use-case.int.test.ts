@@ -1,21 +1,19 @@
-import { NotFoundError } from "../../../../../shared/domain/errors/not-found.errors";
-import { Uuid } from "../../../../../shared/domain/value-objects/uuid.vo";
 import { setupSequelize } from "../../../../../shared/infra/testing/helpers";
 import { Category } from "../../../../domain/category.entity";
 import { CategorySequelizeRepository } from "../../../../infra/db/sequelize/category-sequelize.repository";
 import { CategoryModel } from "../../../../infra/db/sequelize/category.model";
 import { CategoryOutputMapper } from "../../common/category-output";
-import { ListCategoryUseCase } from "../../list-category.use-case";
+import { ListCategoriesUseCase } from "../list-categories.use-case";
 
-describe("ListCategoryUseCase Integration Tests", () => {
-  let useCase: ListCategoryUseCase;
+describe("ListCategoriesUseCase Integration Tests", () => {
+  let useCase: ListCategoriesUseCase;
   let repository: CategorySequelizeRepository;
 
   setupSequelize({ models: [CategoryModel] });
 
   beforeEach(() => {
     repository = new CategorySequelizeRepository(CategoryModel);
-    useCase = new ListCategoryUseCase(repository);
+    useCase = new ListCategoriesUseCase(repository);
   });
 
   it("should return output sorted by created_at when input param is empty", async () => {

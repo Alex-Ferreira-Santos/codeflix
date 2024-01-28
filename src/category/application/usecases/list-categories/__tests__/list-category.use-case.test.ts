@@ -1,21 +1,16 @@
-import { NotFoundError } from "../../../../../shared/domain/errors/not-found.errors";
-import {
-  InvalidUuidError,
-  Uuid,
-} from "../../../../../shared/domain/value-objects/uuid.vo";
 import { Category } from "../../../../domain/category.entity";
 import { CategorySearchResult } from "../../../../domain/category.repository";
 import { CategoryInMemoryRepository } from "../../../../infra/db/in-memory/category-in-memory.repository";
 import { CategoryOutputMapper } from "../../common/category-output";
-import { ListCategoryUseCase } from "../../list-category.use-case";
+import { ListCategoriesUseCase } from "../list-categories.use-case";
 
-describe("ListCategoryUseCase Unit Tests", () => {
-  let useCase: ListCategoryUseCase;
+describe("ListCategoriesUseCase Unit Tests", () => {
+  let useCase: ListCategoriesUseCase;
   let repository: CategoryInMemoryRepository;
 
   beforeEach(() => {
     repository = new CategoryInMemoryRepository();
-    useCase = new ListCategoryUseCase(repository);
+    useCase = new ListCategoriesUseCase(repository);
   });
 
   test("toOutput method", () => {
@@ -93,36 +88,36 @@ describe("ListCategoryUseCase Unit Tests", () => {
       total: 3,
       current_page: 1,
       per_page: 2,
-      last_page: 2
-    })
+      last_page: 2,
+    });
 
     output = await useCase.execute({
       page: 2,
       per_page: 2,
-      sort: 'name',
-      filter: 'a'
-    })
+      sort: "name",
+      filter: "a",
+    });
     expect(output).toStrictEqual({
       items: [items[0]].map(CategoryOutputMapper.toOutput),
       total: 3,
       current_page: 2,
       per_page: 2,
-      last_page: 2
-    })
+      last_page: 2,
+    });
 
     output = await useCase.execute({
       page: 1,
       per_page: 2,
-      sort: 'name',
-      sort_dir: 'desc',
-      filter: 'a'
-    })
+      sort: "name",
+      sort_dir: "desc",
+      filter: "a",
+    });
     expect(output).toStrictEqual({
       items: [items[0], items[2]].map(CategoryOutputMapper.toOutput),
       total: 3,
       current_page: 1,
       per_page: 2,
-      last_page: 2
-    })
+      last_page: 2,
+    });
   });
 });
