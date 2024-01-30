@@ -9,7 +9,9 @@ import {
 } from "../../../domain/category.repository";
 import { CategoryModel } from "./category.model";
 import { CategoryModelMapper } from "./category-model-mapper";
+import { Injectable } from "@nestjs/common";
 
+@Injectable()
 export class CategorySequelizeRepository implements ICategoryRepository {
   sortableFields: string[] = ["name", "created_at"];
 
