@@ -1,10 +1,13 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
 import { CreateCategoryDto } from './dto/create-category.dto';
 import { UpdateCategoryDto } from './dto/update-category.dto';
+import { CategorySequelizeRepository } from '@core/category/infra/db/sequelize/category-sequelize.repository';
 
 @Controller('categories')
 export class CategoriesController {
-  constructor(private readonly categoriesService: string) {}
+  constructor(private readonly categoryRepo: CategorySequelizeRepository) {
+    console.log(categoryRepo)
+  }
 
   @Post()
   create(@Body() createCategoryDto: CreateCategoryDto) {
