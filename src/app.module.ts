@@ -4,16 +4,15 @@ import { AppService } from './app.service';
 import { CategoriesModule } from './categories/categories.module';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { CategoryModel } from '@core/category/infra/db/sequelize/category.model';
+import { DatabaseModule } from './database/database.module';
+import { ConfigModule } from './config/config.module';
 
 @Module({
   imports: [
-    SequelizeModule.forRoot({
-      dialect: 'sqlite',
-      host: ':memory:',
-      logging: false,
-      models: [CategoryModel],
-    }),
+    ConfigModule.forRoot(),
+    DatabaseModule,
     CategoriesModule,
+    ConfigModule,
   ],
   controllers: [AppController],
   providers: [AppService],
