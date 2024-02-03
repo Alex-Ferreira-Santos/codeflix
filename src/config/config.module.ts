@@ -17,6 +17,8 @@ type TDB_SCHEMA = {
   DB_AUTO_LOAD_MODELS: boolean;
 };
 
+export type TCONFIG_SCHEMA = TDB_SCHEMA
+
 export const CONFIG_DB_SCHEMA: Joi.StrictSchemaMap<TDB_SCHEMA> = {
   DB_VENDOR: Joi.string().required().valid('mysql', 'sqlite'),
   DB_HOST: Joi.string().required(),
