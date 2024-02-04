@@ -3,10 +3,7 @@ import {
   TPaginationOutput,
 } from "../../../../shared/application/pagination-output";
 import { IUseCase } from "../../../../shared/application/use-case.interface";
-import { NotFoundError } from "../../../../shared/domain/errors/not-found.errors";
 import { TSortDirection } from "../../../../shared/domain/repository/search-params";
-import { Uuid } from "../../../../shared/domain/value-objects/uuid.vo";
-import { Category } from "../../../domain/category.entity";
 import {
   CategorySearchParams,
   CategorySearchResult,
