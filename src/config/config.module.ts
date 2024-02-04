@@ -17,7 +17,7 @@ type TDB_SCHEMA = {
   DB_AUTO_LOAD_MODELS: boolean;
 };
 
-export type TCONFIG_SCHEMA = TDB_SCHEMA
+export type TCONFIG_SCHEMA = TDB_SCHEMA;
 
 export const CONFIG_DB_SCHEMA: Joi.StrictSchemaMap<TDB_SCHEMA> = {
   DB_VENDOR: Joi.string().required().valid('mysql', 'sqlite'),
@@ -34,7 +34,7 @@ export const CONFIG_DB_SCHEMA: Joi.StrictSchemaMap<TDB_SCHEMA> = {
     is: 'mysql',
     then: Joi.required(),
   }),
-  DB_PORT: Joi.number().when('DB_VENDOR', {
+  DB_PORT: Joi.number().integer().when('DB_VENDOR', {
     is: 'mysql',
     then: Joi.required(),
   }),
@@ -53,7 +53,7 @@ export class ConfigModule extends NestConfigModule {
         join(process.cwd(), 'envs', `.env.${process.env.NODE_ENV}`),
         join(process.cwd(), 'envs', `.env`),
       ],
-      validationSchema: Joi.object({...CONFIG_DB_SCHEMA}),
+      validationSchema: Joi.object({ ...CONFIG_DB_SCHEMA }),
       ...otherOptions,
     });
   }
