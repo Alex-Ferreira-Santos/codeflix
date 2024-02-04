@@ -1,14 +1,8 @@
-import { Test, TestingModule } from '@nestjs/testing';
-import { CategoriesController } from './categories.controller';
-import { DatabaseModule } from 'src/nest-modules/database-module/database.module';
-import { CategoriesModule } from './categories.module';
-import { ConfigModule } from 'src/nest-modules/config-module/config.module';
-import { getModelToken } from '@nestjs/sequelize';
-import { CategoryModel } from '@core/category/infra/db/sequelize/category.model';
-import { CategoryInMemoryRepository } from '@core/category/infra/db/in-memory/category-in-memory.repository';
+import { CategoriesController } from '../categories.controller';
+
 import { CreateCategoryOutput } from '@core/category/application/usecases/create-category/create-category.use-case';
-import { CreateCategoryDto } from './dto/create-category.dto';
-import { CategoryCollectionPresenter, CategoryPresenter } from './categories.presenter';
+import { CreateCategoryDto } from '../dto/create-category.dto';
+import { CategoryCollectionPresenter, CategoryPresenter } from '../categories.presenter';
 import { UpdateCategoryOutput } from '@core/category/application/usecases/update-category/update-category.use-case';
 import { GetCategoryOutput } from '@core/category/application/usecases/get-category/get-category.use-case';
 import { ListCategoriesOutput } from '@core/category/application/usecases/list-categories/list-categories.use-case';
