@@ -34,7 +34,7 @@ export class CategoriesController {
   private updateUseCase: UpdateCategoryUseCase;
 
   @Inject(DeleteCategoryUseCase)
-  private deleteeUseCase: DeleteCategoryUseCase;
+  private deleteUseCase: DeleteCategoryUseCase;
 
   @Inject(GetCategoryUseCase)
   private getUseCase: GetCategoryUseCase;
@@ -82,7 +82,7 @@ export class CategoriesController {
   remove(
     @Param('id', new ParseUUIDPipe({ errorHttpStatusCode: 422 })) id: string,
   ) {
-    return this.deleteeUseCase.execute({ id });
+    return this.deleteUseCase.execute({ id });
   }
 
   static serialize(output: TCategoryOutput) {
