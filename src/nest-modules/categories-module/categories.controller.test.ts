@@ -3,9 +3,9 @@ import { CategoriesController } from './categories.controller';
 import { CategorySequelizeRepository } from '@core/category/infra/db/sequelize/category-sequelize.repository';
 import { CategoryModel } from '@core/category/infra/db/sequelize/category.model';
 import { SequelizeModule, getModelToken } from '@nestjs/sequelize';
-import { DatabaseModule } from 'src/database/database.module';
+import { DatabaseModule } from 'src/nest-modules/database-module/database.module';
 import { CategoriesModule } from './categories.module';
-import { ConfigModule } from 'src/config/config.module';
+import { ConfigModule } from 'src/nest-modules/config-module/config.module';
 import { ConfigService } from '@nestjs/config';
 
 describe('CategoriesController', () => {

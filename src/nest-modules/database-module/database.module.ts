@@ -2,7 +2,7 @@ import { CategoryModel } from '@core/category/infra/db/sequelize/category.model'
 import { Module } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { SequelizeModule } from '@nestjs/sequelize';
-import { TCONFIG_SCHEMA } from 'src/config/config.module';
+import { TCONFIG_SCHEMA } from 'src/nest-modules/config-module/config.module';
 
 const models = [CategoryModel];
 @Module({
@@ -16,7 +16,7 @@ const models = [CategoryModel];
             host: configService.get('DB_HOST'),
             models,
             logging: configService.get('DB_LOGGING'),
-            autoLoadModels: configService.get('DB_AUTO_LOAD_MODELS')
+            autoLoadModels: configService.get('DB_AUTO_LOAD_MODELS'),
           };
         }
         if (dbVendor === 'mysql') {
@@ -29,7 +29,7 @@ const models = [CategoryModel];
             password: configService.get('DB_PASSWORD'),
             models,
             logging: configService.get('DB_LOGGING'),
-            autoLoadModels: configService.get('DB_AUTO_LOAD_MODELS')
+            autoLoadModels: configService.get('DB_AUTO_LOAD_MODELS'),
           };
         }
 
