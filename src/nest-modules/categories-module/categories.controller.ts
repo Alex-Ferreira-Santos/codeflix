@@ -13,17 +13,17 @@ import {
 } from '@nestjs/common';
 import { CreateCategoryDto } from './dto/create-category.dto';
 import { UpdateCategoryDto } from './dto/update-category.dto';
-import { CreateCategoryUseCase } from '@core/category/application/usecases/create-category/create-category.use-case';
-import { UpdateCategoryUseCase } from '@core/category/application/usecases/update-category/update-category.use-case';
-import { DeleteCategoryUseCase } from '@core/category/application/usecases/delete-category/delete-category.use-case';
-import { ListCategoriesUseCase } from '@core/category/application/usecases/list-categories/list-categories.use-case';
-import { GetCategoryUseCase } from '@core/category/application/usecases/get-category/get-category.use-case';
+import { CreateCategoryUseCase } from '../../core/category/application/use-cases/create-category/create-category.use-case';
+import { UpdateCategoryUseCase } from '../../core/category/application/use-cases/update-category/update-category.use-case';
+import { DeleteCategoryUseCase } from '../../core/category/application/use-cases/delete-category/delete-category.use-case';
+import { GetCategoryUseCase } from '../../core/category/application/use-cases/get-category/get-category.use-case';
+import { ListCategoriesUseCase } from '../../core/category/application/use-cases/list-categories/list-categories.use-case';
 import {
   CategoryCollectionPresenter,
   CategoryPresenter,
 } from './categories.presenter';
-import { TCategoryOutput } from '@core/category/application/usecases/common/category-output';
-import { SearchCategoriesDTO } from './dto/search-categories.dto';
+import { TCategoryOutput } from '../../core/category/application/use-cases/common/category-output';
+import { SearchCategoriesDto } from './dto/search-categories.dto';
 
 @Controller('categories')
 export class CategoriesController {
@@ -49,9 +49,8 @@ export class CategoriesController {
   }
 
   @Get()
-  async search(@Query() searchParamsDTO: SearchCategoriesDTO) {
-    const output = await this.listUseCase.execute(searchParamsDTO);
-
+  async search(@Query() searchParamsDto: SearchCategoriesDto) {
+    const output = await this.listUseCase.execute(searchParamsDto);
     return new CategoryCollectionPresenter(output);
   }
 
@@ -69,10 +68,8 @@ export class CategoriesController {
     @Body() updateCategoryDto: UpdateCategoryDto,
   ) {
     const output = await this.updateUseCase.execute({
+      ...updateCategoryDto,
       id,
-      description: updateCategoryDto.description,
-      is_active: updateCategoryDto.is_active,
-      name: updateCategoryDto.name,
     });
     return CategoriesController.serialize(output);
   }

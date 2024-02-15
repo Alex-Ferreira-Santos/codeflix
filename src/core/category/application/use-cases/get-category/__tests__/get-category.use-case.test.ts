@@ -1,4 +1,4 @@
-import { NotFoundError } from "../../../../../shared/domain/errors/not-found.errors";
+import { NotFoundError } from "../../../../../shared/domain/errors/not-found.error";
 import {
   InvalidUuidError,
   Uuid,
@@ -16,35 +16,27 @@ describe("GetCategoryUseCase Unit Tests", () => {
     useCase = new GetCategoryUseCase(repository);
   });
 
-  it("should throws an error when entity not found", async () => {
+  it("should throws error when entity not found", async () => {
     await expect(() => useCase.execute({ id: "fake id" })).rejects.toThrow(
       new InvalidUuidError()
     );
 
     const uuid = new Uuid();
-
     await expect(() => useCase.execute({ id: uuid.id })).rejects.toThrow(
       new NotFoundError(uuid.id, Category)
     );
   });
 
-  it("should delete a category", async () => {
-    const items = [
-      Category.fake()
-        .aCategory()
-        .withName("Movie")
-        .withDescription("some description")
-        .build(),
-    ];
+  it("should returns a category", async () => {
+    const items = [Category.create({ name: "Movie" })];
     repository.items = items;
     const spyFindById = jest.spyOn(repository, "findById");
     const output = await useCase.execute({ id: items[0].category_id.id });
-
     expect(spyFindById).toHaveBeenCalledTimes(1);
     expect(output).toStrictEqual({
       id: items[0].category_id.id,
       name: "Movie",
-      description: "some description",
+      description: null,
       is_active: true,
       created_at: items[0].created_at,
     });

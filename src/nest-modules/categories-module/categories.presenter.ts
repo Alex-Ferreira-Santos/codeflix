@@ -1,11 +1,12 @@
-import { TCategoryOutput } from '@core/category/application/usecases/common/category-output';
-import { ListCategoriesOutput } from '@core/category/application/usecases/list-categories/list-categories.use-case';
+import { TCategoryOutput } from '@core/category/application/use-cases/common/category-output';
+import { ListCategoriesOutput } from '@core/category/application/use-cases/list-categories/list-categories.use-case';
 import { Transform } from 'class-transformer';
 import { CollectionPresenter } from '../shared-module/collection.presenter';
 
 export class CategoryPresenter {
   id: string;
   name: string;
+  is_active: boolean;
   description: string | null;
 
   @Transform(({ value }: { value: Date }) => value.toISOString())
@@ -15,17 +16,17 @@ export class CategoryPresenter {
     this.id = output.id;
     this.name = output.name;
     this.description = output.description;
+    this.is_active = output.is_active;
     this.created_at = output.created_at;
   }
 }
 
 export class CategoryCollectionPresenter extends CollectionPresenter {
-  data: CategoryPresenter[]
+  data: CategoryPresenter[];
 
   constructor(output: ListCategoriesOutput) {
-    const {items, ...paginationProps } = output
-    super(paginationProps )
-    this.data = items.map((i) => new CategoryPresenter(i))
+    const { items, ...paginationProps } = output;
+    super(paginationProps);
+    this.data = items.map((i) => new CategoryPresenter(i));
   }
-
 }

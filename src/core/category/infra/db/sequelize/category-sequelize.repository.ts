@@ -1,19 +1,19 @@
-import { Op } from "sequelize";
-import { NotFoundError } from "../../../../shared/domain/errors/not-found.errors";
-import { Uuid } from "../../../../shared/domain/value-objects/uuid.vo";
-import { Category } from "../../../domain/category.entity";
+import { Op } from 'sequelize';
+import { NotFoundError } from '../../../../shared/domain/errors/not-found.error';
+import { Uuid } from '../../../../shared/domain/value-objects/uuid.vo';
+import { Category } from '../../../domain/category.entity';
 import {
   CategorySearchParams,
   CategorySearchResult,
   ICategoryRepository,
-} from "../../../domain/category.repository";
-import { CategoryModel } from "./category.model";
-import { CategoryModelMapper } from "./category-model-mapper";
-import { Injectable } from "@nestjs/common";
+} from '../../../domain/category.repository';
+import { CategoryModel } from './category.model';
+import { CategoryModelMapper } from './category-model-mapper';
+import { Injectable } from '@nestjs/common';
 
 @Injectable()
 export class CategorySequelizeRepository implements ICategoryRepository {
-  sortableFields: string[] = ["name", "created_at"];
+  sortableFields: string[] = ['name', 'created_at'];
 
   constructor(private categoryModel: typeof CategoryModel) {}
   async insert(entity: Category): Promise<void> {
@@ -23,7 +23,7 @@ export class CategorySequelizeRepository implements ICategoryRepository {
 
   async bulkInsert(entities: Category[]): Promise<void> {
     const modelsProps = entities.map((entity) =>
-      CategoryModelMapper.toModel(entity).toJSON()
+      CategoryModelMapper.toModel(entity).toJSON(),
     );
     await this.categoryModel.bulkCreate(modelsProps);
   }
@@ -82,7 +82,7 @@ export class CategorySequelizeRepository implements ICategoryRepository {
             order: [[props.sort, props.sort_dir]],
           }
         : {
-            order: [["created_at", "desc"]],
+            order: [['created_at', 'desc']],
           }),
       offset,
       limit,

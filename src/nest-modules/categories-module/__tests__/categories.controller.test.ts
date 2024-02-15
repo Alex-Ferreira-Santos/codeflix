@@ -1,11 +1,14 @@
 import { CategoriesController } from '../categories.controller';
 
-import { CreateCategoryOutput } from '@core/category/application/usecases/create-category/create-category.use-case';
+import { CreateCategoryOutput } from '@core/category/application/use-cases/create-category/create-category.use-case';
 import { CreateCategoryDto } from '../dto/create-category.dto';
-import { CategoryCollectionPresenter, CategoryPresenter } from '../categories.presenter';
+import {
+  CategoryCollectionPresenter,
+  CategoryPresenter,
+} from '../categories.presenter';
 import { UpdateCategoryOutput } from '@core/category/application/usecases/update-category/update-category.use-case';
-import { GetCategoryOutput } from '@core/category/application/usecases/get-category/get-category.use-case';
-import { ListCategoriesOutput } from '@core/category/application/usecases/list-categories/list-categories.use-case';
+import { GetCategoryOutput } from '@core/category/application/use-cases/get-category/get-category.use-case';
+import { ListCategoriesOutput } from '@core/category/application/use-cases/list-categories/list-categories.use-case';
 import { TSortDirection } from '@core/shared/domain/repository/search-params';
 
 describe('CategoriesController', () => {
@@ -135,12 +138,12 @@ describe('CategoriesController', () => {
       per_page: 2,
       sort: 'name',
       sort_dir: 'desc' as TSortDirection,
-      filter: 'test'
-    }
+      filter: 'test',
+    };
 
-    const presenter = await controller.search(searchParams)
-    expect(presenter).toBeInstanceOf(CategoryCollectionPresenter)
-    expect(mockListUseCase.execute).toHaveBeenCalledWith(searchParams)
-    expect(presenter).toEqual(new CategoryCollectionPresenter(output))
+    const presenter = await controller.search(searchParams);
+    expect(presenter).toBeInstanceOf(CategoryCollectionPresenter);
+    expect(mockListUseCase.execute).toHaveBeenCalledWith(searchParams);
+    expect(presenter).toEqual(new CategoryCollectionPresenter(output));
   });
 });
